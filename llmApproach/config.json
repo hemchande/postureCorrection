@@ -1,0 +1,55 @@
+{
+    "pose_backbones": {
+      "mediapipe": {
+        "enabled": true,
+        "type": "mediapipe",
+        "landmark_dim": 51
+      },
+      "yolov8": {
+        "enabled": false,
+        "type": "ultralytics",
+        "model_path": "yolov8s-pose.pt",
+        "landmark_dim": 34
+      },
+      "mmpose": {
+        "enabled": false,
+        "type": "mmpose",
+        "config_file": "configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/hrnet_w32_coco_256x192.py",
+        "checkpoint_file": "checkpoints/hrnet_w32_coco_256x192.pth",
+        "landmark_dim": 34
+      }
+    },
+  
+    "label_encoder": {
+      "model_name": "bert-base-uncased",
+      "tokenizer_name": "bert-base-uncased",
+      "freeze": true
+    },
+  
+    "text_decoder": {
+      "model_name": "t5-small",
+      "tokenizer_name": "t5-small",
+      "freeze": false
+    },
+  
+    "adapter": {
+      "input_dim": 51,
+      "hidden_dim": 512,
+      "output_dim": 768,
+      "transformer_depth": 2,
+      "n_heads": 4
+    },
+  
+    "training": {
+      "batch_size": 8,
+      "epochs": 5,
+      "learning_rate": 1e-4,
+      "shuffle": true,
+      "save_path": "checkpoints/pose_feedback_model.pt"
+    },
+  
+    "dataset": {
+      "path": "pose_feedback_data.npz"
+    }
+  }
+  
